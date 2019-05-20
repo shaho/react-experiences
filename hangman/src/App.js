@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Hangman />
+        <Hangman maxWrongAnswers={6} />
       </div>
     )
   }
