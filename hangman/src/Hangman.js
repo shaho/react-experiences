@@ -22,6 +22,7 @@ class Hangman extends Component {
             guessed: new Set(),
             answer: "apple"
         };
+        this.handleGuess = this.handleGuess.bind(this)
     }
     guessedWord() {
         return (
@@ -38,15 +39,19 @@ class Hangman extends Component {
                 return (
                     <button
                         value={letter}
-                        onClick={this.handleClick}
+                        onClick={this.handleGuess}
                         disabled={this.state.guessed.has(letter)}
                     >{letter}</button>
                 );
             })
         );
     }
-    handleClick() {
-
+    handleGuess(e) {
+        let letter = e.target.value;
+        this.setState(prevState => ({
+            guessed: prevState.guessed.add(letter),
+            wrongAnswers: prevState.wrongAnswers + (prevState.answer.includes(letter) ? 0 : 1)
+        }));
     }
     render() {
         return (
