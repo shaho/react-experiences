@@ -27,6 +27,7 @@ class NewTodoForm extends Component {
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
+            placeholder="new todo"
             name="task"
             id="task"
             value={this.state.task}

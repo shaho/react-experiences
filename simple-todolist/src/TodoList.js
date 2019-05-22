@@ -10,7 +10,8 @@ class TodoList extends Component {
       tasks: []
     };
     this.addTask = this.addTask.bind(this);
-    this.removeItem = this.removeItem.bind(this);
+    this.removeTask = this.removeTask.bind(this);
+    this.updateTask = this.updateTask.bind(this);
   }
   addTask(task) {
     let newTask = { task: task, id: uuid() };
@@ -18,7 +19,19 @@ class TodoList extends Component {
       return { tasks: [...prevState.tasks, newTask] };
     });
   }
-  removeItem(id) {
+  updateTask(id, upadtedTask) {
+    const updatedTasks = this.state.tasks.map(task => {
+      if (task.id === id) {
+        return { ...task, task: upadtedTask };
+      }
+      return task;
+    });
+
+    this.setState({
+      tasks: updatedTasks
+    });
+  }
+  removeTask(id) {
     this.setState(() => {
       return {
         tasks: this.state.tasks.filter(task => {
@@ -30,7 +43,7 @@ class TodoList extends Component {
   render() {
     return (
       <div className="">
-        <h1>Simple to do list</h1>
+        <h1>Simple todo list</h1>
         <NewTodoForm addTask={this.addTask} />
         <ul>
           {this.state.tasks.map(task => {
@@ -39,7 +52,8 @@ class TodoList extends Component {
                 taskTitle={task.task}
                 id={task.id}
                 key={task.id}
-                removeItem={this.removeItem}
+                removeItem={this.removeTask}
+                updateItem={this.updateTask}
               />
             );
           })}
