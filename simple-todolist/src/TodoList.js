@@ -12,9 +12,10 @@ class TodoList extends Component {
     this.addTask = this.addTask.bind(this);
     this.removeTask = this.removeTask.bind(this);
     this.updateTask = this.updateTask.bind(this);
+    // this.toggleCompleteion = this.toggleCompleteion.bind(this);
   }
   addTask(task) {
-    let newTask = { task: task, id: uuid() };
+    let newTask = { task: task, id: uuid(), completed: false };
     this.setState(prevState => {
       return { tasks: [...prevState.tasks, newTask] };
     });
@@ -40,6 +41,18 @@ class TodoList extends Component {
       };
     });
   }
+  //   toggleCompleteion(id) {
+  //     const updatedTasks = this.state.tasks.map(task => {
+  //       if (task.id === id) {
+  //         return { ...task, completed: !task.completed };
+  //       }
+  //       return task;
+  //     });
+
+  //     this.setState({
+  //       tasks: updatedTasks
+  //     });
+  //   }
   render() {
     return (
       <div className="">
@@ -52,8 +65,10 @@ class TodoList extends Component {
                 taskTitle={task.task}
                 id={task.id}
                 key={task.id}
+                completed={task.completed}
                 removeItem={this.removeTask}
                 updateItem={this.updateTask}
+                // toggleItem={this.toggleCompleteion}
               />
             );
           })}
