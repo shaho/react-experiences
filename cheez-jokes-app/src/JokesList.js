@@ -16,6 +16,12 @@ class JokesList extends Component {
       loading: false,
       jokesList: JSON.parse(window.localStorage.getItem("jokes") || "[]")
     };
+    this.seenJokes = new Set(
+      this.state.jokesList.map(joke => {
+        return joke.id;
+      })
+    );
+    console.log(this.seenJokes);
     this.handleClick = this.handleClick.bind(this);
   }
   ////////////////////////////////
@@ -23,41 +29,53 @@ class JokesList extends Component {
     if (this.state.jokesList.length === 0) this.fetchJokesList();
     // console.log(response.data.joke);
   }
+  ////////////////////////////////
   async fetchJokesList() {
-    let newJokeList = [];
-    while (newJokeList.length < this.props.numberOfJokesToGet) {
-      let response = await axios.get(Jokes_API_URL, {
-        headers: { Accept: "application/json" }
-      });
-      console.log(response.data.id);
-      const jokeExist = newJokeList.some(joke => {
-        return joke.id === response.data.id;
-      });
-
-      if (!jokeExist) {
-        newJokeList.push({
-          id: response.data.id,
-          joke: response.data.joke,
-          votes: 0
+    try {
+      let newJokeList = [];
+      while (newJokeList.length < this.props.numberOfJokesToGet) {
+        let response = await axios.get(Jokes_API_URL, {
+          headers: { Accept: "application/json" }
         });
+        console.log(response.data.id);
+        const jokeExist = newJokeList.some(joke => {
+          return joke.id === response.data.id;
+        });
+        if (jokeExist) {
+          console.log("Duplicate from Array: " + response.data.joke);
+        }
+        if (this.seenJokes.has(response.data.id)) {
+          console.log("Duplicate from seenJokes: " + response.data.joke);
+        }
+
+        if (!jokeExist && !this.seenJokes.has(response.data.id)) {
+          newJokeList.push({
+            id: response.data.id,
+            joke: response.data.joke,
+            votes: 0
+          });
+        }
       }
+      this.setState(
+        prevState => {
+          return {
+            loading: false,
+            jokesList: [...prevState.jokesList, ...newJokeList]
+          };
+        },
+        // Callback
+        () => {
+          return window.localStorage.setItem(
+            "jokes",
+            JSON.stringify(this.state.jokesList)
+          );
+        }
+      );
+      console.log(newJokeList);
+    } catch (error) {
+      alert(`Whoops! something went wrong! ${error}`);
+      this.setState({ loading: false });
     }
-    this.setState(
-      prevState => {
-        return {
-          loading: false,
-          jokesList: [...prevState.jokesList, ...newJokeList]
-        };
-      },
-      // Callback
-      () => {
-        return window.localStorage.setItem(
-          "jokes",
-          JSON.stringify(this.state.jokesList)
-        );
-      }
-    );
-    console.log(newJokeList);
   }
   ////////////////////////////////
   handleClick() {
@@ -86,6 +104,9 @@ class JokesList extends Component {
   }
   ////////////////////////////////
   render() {
+    let sortedJokes = this.state.jokesList.sort((a, b) => {
+      return b.votes - a.votes;
+    });
     return (
       <div className="JokeList">
         <div className="JokeList-sidebar">
@@ -104,7 +125,7 @@ class JokesList extends Component {
           <div className="loader" />
         ) : (
           <div className="JokeList-jokes">
-            {this.state.jokesList.map(joke => {
+            {sortedJokes.map(joke => {
               return (
                 <Joke
                   id={joke.id}
