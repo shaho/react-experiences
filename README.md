@@ -1,2 +1,2 @@
 # react-experiences
-Exemplary real world application built with React.js
+Explementary real world application built with React.js
