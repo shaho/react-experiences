@@ -9,8 +9,12 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
+The page will reload -delete this with another word another one- if you make edits.<br />
+This line is created by command replace replace me psychology in vim which shortcut is o in normal mode
 You will also see any lint errors in the console.
+
+line is created by command replace replace me psychology
+is created by command replace
 
 ### `yarn test`
 
