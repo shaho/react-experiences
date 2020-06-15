@@ -1,12 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
+import "./App.css";
+import { v1 as uuid } from "uuid";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
