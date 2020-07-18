@@ -1,3 +1,4 @@
+import { v1 as uuid } from "uuid";
 import { Todo } from "./type";
 
 // constants
@@ -12,3 +13,18 @@ interface createTodoActionType {
   type: typeof CREATE_TODO;
   payload: Todo;
 }
+
+export const createTodoActionCreator = ({
+  desc,
+}: {
+  desc: string;
+}): createTodoActionType => {
+  return {
+    type: CREATE_TODO,
+    payload: {
+      id: uuid(),
+      desc,
+      isComplete: false,
+    },
+  };
+};
