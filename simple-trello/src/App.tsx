@@ -1,10 +1,21 @@
 import React from "react";
+import { AppContainer } from "./styles";
+import { Column } from "./Column";
+import { Card } from "./Card";
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>hello world!</h1>
-    </div>
+    <AppContainer>
+      <Column text="To Do">
+        <Card text="Generate app scaffold"></Card>
+      </Column>
+      <Column text="In Progres">
+        <Card text="Learn Typescript"></Card>
+      </Column>
+      <Column text="Done">
+        <Card text="Begin to use static typing"></Card>
+      </Column>
+    </AppContainer>
   );
 };
 
