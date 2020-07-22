@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { TodoListItem } from "./TodoListItem";
 
-const todos: Array<Todo> = [
+const initialTodos: Array<Todo> = [
   { text: "Walk the dog", complete: true },
   { text: "Write App", complete: false },
 ];
 
 const App: React.FC = () => {
+  const [todos, setTodos] = useState(initialTodos);
+
   return (
     <>
       <ul>
