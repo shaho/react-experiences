@@ -1,11 +1,12 @@
 import React from "react";
+import ComponentE from "./ComponentE";
 
-const componentC = () => {
+const ComponentC = () => {
   return (
     <div>
-      <h1>Test</h1>
+      <ComponentE />
     </div>
   );
 };
 
-export default componentC;
+export default ComponentC;

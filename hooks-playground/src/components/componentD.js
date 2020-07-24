@@ -1,6 +1,6 @@
 import React from "react";
 
-const componentD = () => {
+const ComponentD = () => {
   return (
     <div>
       <h1>Test</h1>
@@ -8,4 +8,4 @@ const componentD = () => {
   );
 };
 
-export default componentD;
+export default ComponentD;
