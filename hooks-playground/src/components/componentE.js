@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-// import componentF from "./componentF";
 
 import { UserContext, ChannelContext } from "../App";
 
