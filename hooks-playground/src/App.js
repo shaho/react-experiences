@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import ComponentC from "./components/ComponentC";
+import CounterOne from "./components/CounterOne";
+// import ComponentC from "./components/ComponentC";
 
 export const UserContext = React.createContext();
 export const ChannelContext = React.createContext();
@@ -8,11 +9,13 @@ export const ChannelContext = React.createContext();
 function App() {
   return (
     <div className="App">
-      <UserContext.Provider value={"Vishvas"}>
+      {/* <UserContext.Provider value={"Vishvas"}>
         <ChannelContext.Provider value={"Codevolution"}>
           <ComponentC />
         </ChannelContext.Provider>
-      </UserContext.Provider>
+      </UserContext.Provider> */}
+
+      <CounterOne />
     </div>
   );
 }
